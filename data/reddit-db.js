@@ -9,7 +9,7 @@ mongoose.connect(
   { useNewUrlParser: true },
   function(err, db) {
     assert.equal(null, err);
-    console.log("Connected successfully to database");
+    console.log("Sucessfully connected to database.");
 
     // db.close(); turn on for testing
   }

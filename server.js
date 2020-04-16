@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars');
 const expressValidator = require('express-validator');
 const dotenv = require('dotenv');
 
+dotenv.config({ path: '.env' });
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
@@ -18,16 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // controllers
 // const homeController = require('./controllers/home')(app);
-const postsController = require('./controllers/posts.js')(app);
+require('./controllers/posts')(app);
 
 // Add after body parser initialization!
 app.use(expressValidator());
 
 // views
-app.get('/', (req, res) => res.render('home'));
-app.get('/posts/new', (req, res) => res.render('posts-new'));
-
-
 app.listen(3000, () => {
-    console.log('Gif Search listening on port localhost:3000!');
+    console.log('Reddit JS listening on port localhost:3000!');
 });
+
+module.exports = app;
