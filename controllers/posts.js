@@ -26,6 +26,7 @@ module.exports = app => {
     return res.redirect(`/`);
     })
   });
+  // FIND POST
   app.get('/', (req, res) => {
     Post.find({}).lean()
       .then(posts => {
@@ -36,7 +37,16 @@ module.exports = app => {
       });
   });
   app.get('/post/new', (req, res) => res.render('posts-new'));
-  // app.get('/posts/:id', postController.getPost);
+  app.get('/post/:id', function(req, res) {
+    // LOOK UP THE POST
+    Post.findById(req.params.id)
+      .then(post => {
+        res.render("posts-show", { post });
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  });
 };
 
 // 
