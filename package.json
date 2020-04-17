@@ -4,7 +4,7 @@
   "description": "reddit clone in js",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,10 @@
     "express-handlebars": "^4.0.3",
     "express-validator": "^5.3.1",
     "mongoose": "^5.9.7"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.1.1"
   }
 }
