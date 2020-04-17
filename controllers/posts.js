@@ -41,7 +41,10 @@ module.exports = app => {
     // LOOK UP THE POST
     Post.findById(req.params.id)
       .then(post => {
-        res.render("posts-show", { post });
+        res.render("posts-show", { 
+          title: post.title,
+          post: JSON.parse(JSON.stringify(post))
+        });
       })
       .catch(err => {
         console.log(err.message);
