@@ -9,18 +9,22 @@
     <title>Reddit.js</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-default navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Reddit.js</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-            <li class="nav-item active">
-                {{!-- <span class="sr-only">(current)</span> --}}
-                <a class="nav-link btn btn-primary navbar-btn" href="/post/new">New Post</a>
-            </li>
+          <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item active">
+                  <a class="nav-link btn btn-primary navbar-btn" href="/post/new">New Post</a>
+              </li>
+              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/logout" style="background-color: red;">Logout</a></li>
+              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/login" style="background-color: orange;">Login</a></li>
+              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/sign-up" style="background-color: green;">Sign Up</a></li>
             </ul>
+          </div>
         </div>
     </nav>
       <div class="container">
