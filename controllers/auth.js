@@ -26,6 +26,41 @@ module.exports = (app) => {
           });
     });
 
+    // LOGIN FORM
+    app.get('/login', (req, res) => {
+        res.render('login');
+    });
+
+    // LOGIN
+    app.post("/login", (req, res) => {
+        const username = req.body.username;
+        const password = req.body.password;
+        // find the username
+        User.findOne({ username }, "username password")
+          .then(user => {
+              if (!user) {
+                // user not found
+                return res.status(401).send({ message: "wrong username or password" });
+              }
+              // check the password
+              user.comparePassword(password, (err, isMatch) => {
+                if (!isMatch) {
+                    return res.status(401).send({ message: "wrong username or password" });
+                }
+                // create a token
+                const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+                    expiresIn: "60 days"
+                });
+                // set a cookie and redirect to root
+                res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
+                res.redirect("/");
+              });              
+          })
+          .catch(err => {
+              console.log(err);
+          });
+    });
+
     // LOGOUT
     app.get('/logout', (req, res) => {
         res.clearCookie('nToken');
