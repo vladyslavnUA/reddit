@@ -4,16 +4,20 @@
     <h2><a href="{{post.url}}" class="lead">{{post.title}}</a></h2>
     <p>{{post.summary}}</p>
   </div>
-  <div class="comments">
-    {{#each post.comments}}
-      <p>{{this.content}}</p>
-    {{/each}}
-  </div>
+
+  {{!-- COMMENT FORM --}}
   <form action="/post/{{post._id}}/comments" method="post">
     <textarea class='form-control' name="content" placeholder="Comment"></textarea>
     <div class="text-right">
       <button type="submit" class="btn btn-primary">Save</button>
     </div>
   </form>
+
+  {{!-- COMMENT DISPLAY --}}
+  <div class="comments">
+    {{#each post.comments}}
+      <p>{{this.content}}</p>
+    {{/each}}
+  </div>
 {{!-- </div> --}}
 </div>
