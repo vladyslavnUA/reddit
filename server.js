@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // controllers
 // const homeController = require('./controllers/home')(app);
 require('./controllers/posts')(app);
+require('./controllers/comments.js')(app);
 
 // Add after body parser initialization!
 app.use(expressValidator());
