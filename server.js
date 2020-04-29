@@ -32,6 +32,20 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(checkAuth);
 
+var checkAuth = (req, res, next) => {
+    console.log("----->  checking authetication <-----");
+    if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+        req.user = null;
+    } else {
+        var token = req.cookies.nToken;
+        var decodedToken = jwt.decode(token, { complete: true }) || {};
+        req.user = decodedToken.payload;
+    }
+    
+    next();
+};
+app.use(checkAuth);
+
 // views
 app.listen(3000, () => {
     console.log('Reddit JS listening on port localhost:3000!');
