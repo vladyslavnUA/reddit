@@ -12,8 +12,6 @@ dotenv.config({ path: '.env' });
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-// var app = express();
-
 // Set db
 require('./data/reddit-db');
 
@@ -24,6 +22,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Add after body parser initialization!
 app.use(expressValidator());
 app.use(cookieParser());
+
+var checkAuth = (req, res, next) => {
+    console.log("----->  checking authetication <-----");
+    if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+        req.user = null;
+    } else {
+        var token = req.cookies.nToken;
+        var decodedToken = jwt.decode(token, { complete: true }) || {};
+        req.user = decodedToken.payload;
+    }
+    
+    next();
+};
+app.use(checkAuth);
 
 // views
 app.listen(3000, () => {

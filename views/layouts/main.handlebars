@@ -17,12 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item active">
-                  <a class="nav-link btn btn-primary navbar-btn" href="/post/new">New Post</a>
-              </li>
-              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/logout" style="background-color: red;">Logout</a></li>
-              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/login" style="background-color: orange;">Login</a></li>
-              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/sign-up" style="background-color: green;">Sign Up</a></li>
+              {{#if currentUser}}
+              <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/post/new">New Post</a></li>
+                <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/logout" style="background-color: red;">Logout</a></li>
+              {{else}}
+                <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/login" style="background-color: orange;">Login</a></li>
+                <li class="nav-item active"><a class="nav-link btn btn-primary navbar-btn" href="/sign-up" style="background-color: green;">Sign Up</a></li>
+              {{/if}}
             </ul>
           </div>
         </div>
