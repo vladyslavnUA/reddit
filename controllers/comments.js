@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.post("/post/:postId/comments", (req, res) => {
       // INSTANTIATE INSTANCE OF MODEL
       const comment = new Comment(req.body);
-    
+      
       // SAVE INSTANCE OF Comment MODEL TO DB
       comment.save()
           .then(comment => {

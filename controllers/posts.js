@@ -1,51 +1,59 @@
 const Post = require('../models/post');
-
-// module.exports = app => {
-//   // CREATE
-//   app.post('/posts/new', (req, res) => {
-//     // INSTANTIATE INSTANCE OF POST MODEL
-//     const post = new Post(req.body);
-
-//     // SAVE INSTANCE OF POST MODEL TO DB
-//     post.save((err, post) => {
-//     // REDIRECT TO THE ROOT
-//     return res.redirect(`/`);
-//     })
-//   });
-// };
+const User = require('../models/user');
 
 module.exports = app => {
-  app.post('/post/new', (req, res) => {
-    const post = new Post(req.body);
-    post.save((err, post) => {
-    // REDIRECT TO THE ROOT
-    return res.redirect(`/`);
-    })
+  // NEW POST
+  app.get('/post/new', (req, res) => {
+    var currentUser = req.user;
+    res.render('posts-new', { currentUser });
+  })
+
+  app.post("/post/new", (req, res) => {
+    if (req.user) {
+        var post = new Post(req.body);
+        post.author = req.user._id;
+
+        post
+            .save()
+            .then(post => {
+                return User.findById(req.user._id);
+            })
+            .then(user => {
+                user.posts.unshift(post);
+                user.save();
+                // REDIRECT TO THE NEW POST
+                res.redirect(`/post/${post._id}`);
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+    } else {
+        return res.status(401); // UNAUTHORIZED
+    }
   });
 
-  // FIND POST
+  // INDEX
   app.get('/', (req, res) => {
-    Post.find({}).lean()
+    var currentUser = req.user;
+
+    Post.find({}).populate('author').lean()
       .then(posts => {
-          res.render("posts-index", { posts });
+          res.render("posts-index", { posts, currentUser });
       })
       .catch(err => {
           console.log(err.message);
       });
   });
 
-  app.get('/post/new', (req, res) => {
-
-    res.render('posts-new');
-  });
+  // FIND POST
   app.get('/post/:id', function(req, res) {
+    var currentUser = req.user;
+
     // LOOK UP THE POST
-    Post.findById(req.params.id).populate('comments').lean()
+    Post.findById(req.params.id).populate({path:'comments', populate: {path: 'author'}}).populate('author').lean()
       .then(post => {
-        console.log(post)
         res.render("posts-show", { 
-          title: post.title,
-          post: JSON.parse(JSON.stringify(post))
+          post, currentUser
         });
       })
       .catch(err => {
@@ -55,9 +63,10 @@ module.exports = app => {
 
   // SUBREDDIT
   app.get("/n/:subreddit", function(req, res) {
-    Post.find({ subreddit: req.params.subreddit }).lean()
+    var currentUser = req.user;
+    Post.find({ subreddit: req.params.subreddit }).populate('author').lean()
       .then(posts => {
-        res.render("posts-index", { posts });
+        res.render("posts-index", { posts, currentUser });
       })
       .catch(err => {
         console.log(err);
