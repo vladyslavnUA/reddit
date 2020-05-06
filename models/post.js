@@ -11,6 +11,9 @@ const PostSchema = new Schema({
   subreddit: { type: String, required: true, },
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  upVotes : [{ type: Schema.Types.ObjectId, ref: "User"}],
+  downVotes : [{ type: Schema.Types.ObjectId, ref: "User"}],
+  voteScore : {type: Number}
 });
 
 PostSchema.pre("save", function(next) {
@@ -30,6 +33,7 @@ PostSchema
     .pre('findOne', Populate('author'))
     .pre('find', Populate('author'))
     .pre('find', Populate('comments'))
+    .pre('find', Populate('replies'))
 
 
 module.exports = mongoose.model("Post", PostSchema);

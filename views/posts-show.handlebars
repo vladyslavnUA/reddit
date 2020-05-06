@@ -19,6 +19,7 @@
   <div class="comments">
     {{#each post.comments}}
       {{> comment comment=this postId=../post._id}}
+      
       {{!-- <p>{{this.content}}</p>
       <p class="text-right">{{this.author.username}}</p>
       <a href="/post/{{../post._id}}/comments/{{this._id}}/replies/new">reply</a> --}}

@@ -31,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(checkAuth);
+app.use(express.static('public'));
+app.use(express.static('public/img'));
 
 var checkAuth = (req, res, next) => {
     console.log("----->  checking authetication <-----");

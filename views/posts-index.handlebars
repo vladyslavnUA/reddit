@@ -11,8 +11,25 @@
                     <div class="text-right">
                         <a href="/n/{{this.subreddit}}">{{this.subreddit}}</a>
                     </div>
+                    <div class="voting">
+                        <form class="vote-up" data-id="{{this._id}}">
+                            <button type="submit"><img src="upvote.jpeg" class="vote"/></button>
+                        </form>
+                        <form class="vote-down" data-id="{{this._id}}">
+                            <button type="submit"><img src="downvote.jpeg" class="vote"/></button>
+                        </form>
+                    </div>
                 </li>
             {{/each}}
         </ul>
+        <style>
+        .vote {
+            height: 15px;
+            width: 15px;
+        }
+        .voting {
+            margin-left: 90%;
+        }
+        </style>
     </div>
 </div>
