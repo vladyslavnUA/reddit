@@ -2,9 +2,10 @@ const Comment = require('../models/comment');
 const Post = require('../models/post');
 
 module.exports = function (app) {
-  app.post("/posts/:postId/comments", function (req, res) {
+  app.post("/post/:postId/comments", function (req, res) {
       const comment = new Comment(req.body);
       comment.author = req.user._id;
+      console.log("-----------", comment)
       comment
           .save()
           .then(comment => {
