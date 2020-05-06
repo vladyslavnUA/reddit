@@ -20,7 +20,7 @@ module.exports = function (app) {
               ]);
           })
           .then(post => {
-              res.redirect(`/posts/${req.params.postId}`);
+              res.redirect(`/post/${req.params.postId}`);
           })
           .catch(err => {
               console.log(err);

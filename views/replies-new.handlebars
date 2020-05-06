@@ -1,6 +1,19 @@
 <div class="row">
+<style>
+    .row {
+        text-align: center;
+        margin-top: 10%;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    .space {
+        margin-bottom: 10px;
+        text-align: left;
+    }
+</style>
   <div class="col-sm-6 col-sm-offset-3">
-    <form action="/post/{{post_id}}/comments/{{comment_id}}/replies" method="POST">
+    <h5 class="space">post a new reply</h5>
+    <form action="/post/{{post_id}}/comments/{{comment_id}}/replies" method="post">
       <div class="form-group">
         <textarea name="content" class="form-control" id="reply-content" placeholder="Reply"></textarea>
       </div>
