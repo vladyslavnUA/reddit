@@ -29,5 +29,7 @@ PostSchema.pre("save", function(next) {
 PostSchema
     .pre('findOne', Populate('author'))
     .pre('find', Populate('author'))
-    
+    .pre('find', Populate('comments'))
+
+
 module.exports = mongoose.model("Post", PostSchema);
